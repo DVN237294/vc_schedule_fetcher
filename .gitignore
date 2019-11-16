@@ -64,3 +64,7 @@ target/
 .ipynb_checkpoints
 
 .idea/
+
+.vscode/launch.json
+
+.vscode/settings.json

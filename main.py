@@ -49,7 +49,7 @@ class Program:
     def _fetch_schedules(self, start, end):
         start, end = self._sanitize_dates(start, end)
         if start and end:
-            rooms = self.schedule_api.api_schedule_room_get()
+            rooms = self.schedule_api.api_schedule_get_rooms_get()
             self.log.info("Updating schedule for %d rooms.." % len(rooms))
             for room in rooms:
                 room_schedule = self.untis.get_schedule_for_room(room, start, end)
@@ -99,7 +99,7 @@ class Program:
     def _print_room_list(self, limit):
         if limit == 'all':
             limit = 0
-        room_list = self.schedule_api.api_schedule_room_get(limit=limit)
+        room_list = self.schedule_api.api_schedule_get_rooms_get(limit=limit)
         for room in room_list:
             print("Room: %s" % room.name)
 
@@ -119,7 +119,7 @@ class Program:
                 or arguments["--add-room"] or arguments["--print-rooms"]):
             self.log.error("Please provide an operation option")
             exit(1)
-
+            
         self.api_conf = openapi_client.Configuration(host="http://localhost:58180")
         self.api_conf.verify_ssl = False
         self.api_client = openapi_client.ApiClient(configuration=self.api_conf)
