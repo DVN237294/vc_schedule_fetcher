@@ -33,23 +33,27 @@ class Room(object):
     """
     openapi_types = {
         'id': 'int',
+        'webuntis_id': 'int',
         'name': 'str'
     }
 
     attribute_map = {
         'id': 'id',
+        'webuntis_id': 'webuntisId',
         'name': 'name'
     }
 
-    def __init__(self, id=None, name=None):  # noqa: E501
+    def __init__(self, id=None, webuntis_id=None, name=None):  # noqa: E501
         """Room - a model defined in OpenAPI"""  # noqa: E501
 
         self._id = None
+        self._webuntis_id = None
         self._name = None
         self.discriminator = None
 
         if id is not None:
             self.id = id
+        self.webuntis_id = webuntis_id
         self.name = name
 
     @property
@@ -72,6 +76,29 @@ class Room(object):
         """
 
         self._id = id
+
+    @property
+    def webuntis_id(self):
+        """Gets the webuntis_id of this Room.  # noqa: E501
+
+
+        :return: The webuntis_id of this Room.  # noqa: E501
+        :rtype: int
+        """
+        return self._webuntis_id
+
+    @webuntis_id.setter
+    def webuntis_id(self, webuntis_id):
+        """Sets the webuntis_id of this Room.
+
+
+        :param webuntis_id: The webuntis_id of this Room.  # noqa: E501
+        :type: int
+        """
+        if webuntis_id is None:
+            raise ValueError("Invalid value for `webuntis_id`, must not be `None`")  # noqa: E501
+
+        self._webuntis_id = webuntis_id
 
     @property
     def name(self):

@@ -33,48 +33,54 @@ class ScheduledSession(object):
     """
     openapi_types = {
         'id': 'int',
+        'webuntis_id': 'int',
+        'webuntis_course_id': 'int',
         'course_id': 'int',
         'course': 'Course',
         'room_id': 'int',
-        'room': 'Room',
         'start_time': 'datetime',
-        'end_time': 'datetime'
+        'end_time': 'datetime',
+        'webuntis_teacher_ids': 'list[int]'
     }
 
     attribute_map = {
         'id': 'id',
+        'webuntis_id': 'webuntisId',
+        'webuntis_course_id': 'webuntisCourseId',
         'course_id': 'courseId',
         'course': 'course',
         'room_id': 'roomId',
-        'room': 'room',
         'start_time': 'startTime',
-        'end_time': 'endTime'
+        'end_time': 'endTime',
+        'webuntis_teacher_ids': 'webuntisTeacherIds'
     }
 
-    def __init__(self, id=None, course_id=None, course=None, room_id=None, room=None, start_time=None, end_time=None):  # noqa: E501
+    def __init__(self, id=None, webuntis_id=None, webuntis_course_id=None, course_id=None, course=None, room_id=None, start_time=None, end_time=None, webuntis_teacher_ids=None):  # noqa: E501
         """ScheduledSession - a model defined in OpenAPI"""  # noqa: E501
 
         self._id = None
+        self._webuntis_id = None
+        self._webuntis_course_id = None
         self._course_id = None
         self._course = None
         self._room_id = None
-        self._room = None
         self._start_time = None
         self._end_time = None
+        self._webuntis_teacher_ids = None
         self.discriminator = None
 
         if id is not None:
             self.id = id
-        self.course_id = course_id
+        self.webuntis_id = webuntis_id
+        self.webuntis_course_id = webuntis_course_id
+        if course_id is not None:
+            self.course_id = course_id
         if course is not None:
             self.course = course
         self.room_id = room_id
-        if room is not None:
-            self.room = room
-        if start_time is not None:
-            self.start_time = start_time
-        if end_time is not None:
-            self.end_time = end_time
+        self.start_time = start_time
+        self.end_time = end_time
+        self.webuntis_teacher_ids = webuntis_teacher_ids
 
     @property
     def id(self):
@@ -98,6 +104,56 @@ class ScheduledSession(object):
         self._id = id
 
     @property
+    def webuntis_id(self):
+        """Gets the webuntis_id of this ScheduledSession.  # noqa: E501
+
+
+        :return: The webuntis_id of this ScheduledSession.  # noqa: E501
+        :rtype: int
+        """
+        return self._webuntis_id
+
+    @webuntis_id.setter
+    def webuntis_id(self, webuntis_id):
+        """Sets the webuntis_id of this ScheduledSession.
+
+
+        :param webuntis_id: The webuntis_id of this ScheduledSession.  # noqa: E501
+        :type: int
+        """
+        if webuntis_id is None:
+            raise ValueError("Invalid value for `webuntis_id`, must not be `None`")  # noqa: E501
+        if webuntis_id is not None and webuntis_id < 1:  # noqa: E501
+            raise ValueError("Invalid value for `webuntis_id`, must be a value greater than or equal to `1`")  # noqa: E501
+
+        self._webuntis_id = webuntis_id
+
+    @property
+    def webuntis_course_id(self):
+        """Gets the webuntis_course_id of this ScheduledSession.  # noqa: E501
+
+
+        :return: The webuntis_course_id of this ScheduledSession.  # noqa: E501
+        :rtype: int
+        """
+        return self._webuntis_course_id
+
+    @webuntis_course_id.setter
+    def webuntis_course_id(self, webuntis_course_id):
+        """Sets the webuntis_course_id of this ScheduledSession.
+
+
+        :param webuntis_course_id: The webuntis_course_id of this ScheduledSession.  # noqa: E501
+        :type: int
+        """
+        if webuntis_course_id is None:
+            raise ValueError("Invalid value for `webuntis_course_id`, must not be `None`")  # noqa: E501
+        if webuntis_course_id is not None and webuntis_course_id < 1:  # noqa: E501
+            raise ValueError("Invalid value for `webuntis_course_id`, must be a value greater than or equal to `1`")  # noqa: E501
+
+        self._webuntis_course_id = webuntis_course_id
+
+    @property
     def course_id(self):
         """Gets the course_id of this ScheduledSession.  # noqa: E501
 
@@ -115,8 +171,6 @@ class ScheduledSession(object):
         :param course_id: The course_id of this ScheduledSession.  # noqa: E501
         :type: int
         """
-        if course_id is None:
-            raise ValueError("Invalid value for `course_id`, must not be `None`")  # noqa: E501
 
         self._course_id = course_id
 
@@ -161,29 +215,10 @@ class ScheduledSession(object):
         """
         if room_id is None:
             raise ValueError("Invalid value for `room_id`, must not be `None`")  # noqa: E501
+        if room_id is not None and room_id < 1:  # noqa: E501
+            raise ValueError("Invalid value for `room_id`, must be a value greater than or equal to `1`")  # noqa: E501
 
         self._room_id = room_id
-
-    @property
-    def room(self):
-        """Gets the room of this ScheduledSession.  # noqa: E501
-
-
-        :return: The room of this ScheduledSession.  # noqa: E501
-        :rtype: Room
-        """
-        return self._room
-
-    @room.setter
-    def room(self, room):
-        """Sets the room of this ScheduledSession.
-
-
-        :param room: The room of this ScheduledSession.  # noqa: E501
-        :type: Room
-        """
-
-        self._room = room
 
     @property
     def start_time(self):
@@ -203,6 +238,8 @@ class ScheduledSession(object):
         :param start_time: The start_time of this ScheduledSession.  # noqa: E501
         :type: datetime
         """
+        if start_time is None:
+            raise ValueError("Invalid value for `start_time`, must not be `None`")  # noqa: E501
 
         self._start_time = start_time
 
@@ -224,8 +261,31 @@ class ScheduledSession(object):
         :param end_time: The end_time of this ScheduledSession.  # noqa: E501
         :type: datetime
         """
+        if end_time is None:
+            raise ValueError("Invalid value for `end_time`, must not be `None`")  # noqa: E501
 
         self._end_time = end_time
+
+    @property
+    def webuntis_teacher_ids(self):
+        """Gets the webuntis_teacher_ids of this ScheduledSession.  # noqa: E501
+
+
+        :return: The webuntis_teacher_ids of this ScheduledSession.  # noqa: E501
+        :rtype: list[int]
+        """
+        return self._webuntis_teacher_ids
+
+    @webuntis_teacher_ids.setter
+    def webuntis_teacher_ids(self, webuntis_teacher_ids):
+        """Sets the webuntis_teacher_ids of this ScheduledSession.
+
+
+        :param webuntis_teacher_ids: The webuntis_teacher_ids of this ScheduledSession.  # noqa: E501
+        :type: list[int]
+        """
+
+        self._webuntis_teacher_ids = webuntis_teacher_ids
 
     def to_dict(self):
         """Returns the model properties as a dict"""

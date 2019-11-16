@@ -33,26 +33,31 @@ class Course(object):
     """
     openapi_types = {
         'id': 'int',
+        'webuntis_course_id': 'int',
         'name': 'str',
         'sessions': 'list[Session]'
     }
 
     attribute_map = {
         'id': 'id',
+        'webuntis_course_id': 'webuntisCourseId',
         'name': 'name',
         'sessions': 'sessions'
     }
 
-    def __init__(self, id=None, name=None, sessions=None):  # noqa: E501
+    def __init__(self, id=None, webuntis_course_id=None, name=None, sessions=None):  # noqa: E501
         """Course - a model defined in OpenAPI"""  # noqa: E501
 
         self._id = None
+        self._webuntis_course_id = None
         self._name = None
         self._sessions = None
         self.discriminator = None
 
         if id is not None:
             self.id = id
+        if webuntis_course_id is not None:
+            self.webuntis_course_id = webuntis_course_id
         self.name = name
         self.sessions = sessions
 
@@ -76,6 +81,27 @@ class Course(object):
         """
 
         self._id = id
+
+    @property
+    def webuntis_course_id(self):
+        """Gets the webuntis_course_id of this Course.  # noqa: E501
+
+
+        :return: The webuntis_course_id of this Course.  # noqa: E501
+        :rtype: int
+        """
+        return self._webuntis_course_id
+
+    @webuntis_course_id.setter
+    def webuntis_course_id(self, webuntis_course_id):
+        """Sets the webuntis_course_id of this Course.
+
+
+        :param webuntis_course_id: The webuntis_course_id of this Course.  # noqa: E501
+        :type: int
+        """
+
+        self._webuntis_course_id = webuntis_course_id
 
     @property
     def name(self):
