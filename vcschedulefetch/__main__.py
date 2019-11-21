@@ -2,14 +2,14 @@
     VcScheduleFetcher. Fetch calendar information from webuntis for Virtual Classroom Project
 
 Usage:
-    vcschedulefetch <vc_username> <vc_password> <webuntis_user> <webuntis_pwd> [-v...] [options]
+    vcschedulefetch <vc_username> <vc_password> <webuntis_user> <webuntis_pwd> [-h] [-v...] [options]
 
 Options:
     -h, --help                          Print this help text
     -v                                  Set the loglevel
 
 Operations:
-    -s --update-schedule                Updates the schedule of recording-enabled rooms
+    -u --update-schedule                Updates the schedule of recording-enabled rooms
     -c --update-courses                 Bulk updates all courses in the API
     -a <room>, --add-room <room>        Adds the specified room to the list of recording-enabled rooms
     -p <limit>, --print-rooms <limit>   Print <limit> amount of recording-enabled-rooms. [<limit> | all]
@@ -18,6 +18,8 @@ Config:
     --schedule-start <start_date>       Set the start date of the scheduled fetched by update-schedule.
                                         The date must be in the format DD-MM-YYYY
     --schedule-end <end_date>           Set the end date of the scheduled fetched by update-schedule
+    --api-url <url>                     Url of the api to use [default: https://vc-api.amavin.dk]
+    --no-verify-certs                   Disables certificate validation of the https api endpoint 
 """
 
 
@@ -28,7 +30,7 @@ import logging
 import datetime
 
 
-class Program:
+class VcScheduleFetcher:
     def __init__(self):
         self.api_conf = None
         self.api_client = None
@@ -56,7 +58,7 @@ class Program:
                 self.schedule_api.api_schedule_post(scheduled_session=room_schedule)
             self.log.info("Completed updating schedule.")
         else:
-            self.log.warning("Unable to fetch schedules. No dates provided")
+            self.log.error("Unable to fetch schedules. No dates provided")
 
     def _post_courses(self):
         courses = self.untis.get_courses()
@@ -120,8 +122,8 @@ class Program:
             self.log.error("Please provide an operation option")
             exit(1)
             
-        self.api_conf = openapi_client.Configuration(host="http://localhost:58180")
-        self.api_conf.verify_ssl = False
+        self.api_conf = openapi_client.Configuration(host=arguments["--api-url"])
+        self.api_conf.verify_ssl = False if arguments["--no-verify-certs"] else True
         self.api_client = openapi_client.ApiClient(configuration=self.api_conf)
         self.auth_api = openapi_client.AuthenticationApi(self.api_client)
         self.schedule_api = openapi_client.ScheduleApi(self.api_client)
@@ -148,5 +150,9 @@ class Program:
                 self._fetch_schedules(arguments["--schedule-start"], arguments["--schedule-end"])
 
 
-if __name__ == '__main__':
-    Program().main()
+# When run as console script through setup.py entry_point:
+def main():
+    VcScheduleFetcher().main()
+
+# When run as script with python -m:
+VcScheduleFetcher().main() 

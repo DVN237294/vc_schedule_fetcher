@@ -23,7 +23,14 @@ DESCRIPTION = "Module that fetches calendar information for the Virtual Classroo
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil", "docopt", "webuntis"]
+REQUIRES = [
+    "urllib3 >= 1.15", 
+    "six >= 1.10", 
+    "certifi", 
+    "python-dateutil", 
+    "docopt", 
+    "webuntis"
+    ]
 
 setup(
     name=NAME,
@@ -35,6 +42,11 @@ setup(
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
+    entry_points = {
+              'console_scripts': [
+                  'vcschedulefetch = vcschedulefetch.__main__:main',                  
+              ],              
+          }
 )
 
 
